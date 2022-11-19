@@ -1,0 +1,7 @@
+./angle_adjust.v
+./cordic_unit.v
+./cordic_iteration.v
+./scale.v
+./cordic.v
+./cordic_top.v
+./tb_cordic.v
