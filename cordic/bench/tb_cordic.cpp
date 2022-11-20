@@ -74,8 +74,8 @@ int main(int argc, char** argv, char** env) {
     printf("\n");
     int wait_cycles = run_case();
     printf("  [Wait Cycles] %d cycles\n", wait_cycles);
-    printf("  [ Input Data] function = %ld, x = %04ld, y = %04ld, z = %04ld\n", dut->i_data >> 48, (dut->i_data >> 32) & 0xFFFF, (dut->i_data >> 16) & 0xFFFF, (dut->i_data >> 0) & 0xFFFF);
-    printf("  [Output Data] function = %ld, x = %04ld, y = %04ld, z = %04ld\n", dut->o_data >> 48, (dut->o_data >> 32) & 0xFFFF, (dut->o_data >> 16) & 0xFFFF, (dut->o_data >> 0) & 0xFFFF);
+    printf("  [ Input Data] function = 0x%lx, x = 0x%04lx, y = 0x%04lx, z = 0x%04lx\n", dut->i_data >> 48, (dut->i_data >> 32) & 0xFFFF, (dut->i_data >> 16) & 0xFFFF, (dut->i_data >> 0) & 0xFFFF);
+    printf("  [Output Data] function = 0x%lx, x = 0x%04lx, y = 0x%04lx, z = 0x%04lx\n", dut->o_data >> 48, (dut->o_data >> 32) & 0xFFFF, (dut->o_data >> 16) & 0xFFFF, (dut->o_data >> 0) & 0xFFFF);
     printf("\n");
 
     // Write the result to file
