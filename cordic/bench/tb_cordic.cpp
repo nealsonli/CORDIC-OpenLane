@@ -90,7 +90,7 @@ int main(int argc, char** argv, char** env) {
     // Write the result to file
     ofstream result;
     result.open("cordic/simulation/result");
-    result << hex;
+    //result << hex;
     for(int i=0;i<wait_cycles;i++){
       result << (dut->cordic__DOT__u_cordic_iteration__DOT__cordic_data[i][num_iter_per_stage][2] & 0xFFFF) << endl;
       result << (dut->cordic__DOT__u_cordic_iteration__DOT__cordic_data[i][num_iter_per_stage][1] & 0xFFFF) << endl;
