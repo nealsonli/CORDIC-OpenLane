@@ -81,7 +81,6 @@ int main(int argc, char** argv, char** env) {
     // Write the result to file
     ofstream result;
     result.open("cordic/simulation/result");
-    result << hex;
     result << ((dut->o_data >> 48) &    0x1) << endl;
     result << ((dut->o_data >> 32) & 0xFFFF) << endl;
     result << ((dut->o_data >> 16) & 0xFFFF) << endl;
