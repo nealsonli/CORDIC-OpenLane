@@ -26,7 +26,7 @@ module cordic_iteration
    output                           o_vld,
    output      [TOTAL_OP_WIDTH-1:0] o_data
 );
-    
+   /* verilator lint_off LITENDIAN */ 
    localparam [0:14*DATA_OP_WIDTH-1] ELEM_ANGLE={  
          18'd6434, //  0
          18'd3799, //  1
@@ -43,10 +43,14 @@ module cordic_iteration
          18'd2,    // 12
          18'd1     // 13
    };
-
+   
+   /* verilator lint_off UNUSED */
    wire        [FUNC_WIDTH-1:0]     input_func;
+   /* verilator lint_off UNUSED */
    wire signed [DATA_OP_WIDTH-1:0]  input_data     [NUM_DATA-1:0];
+   /* verilator lint_off UNUSED */
    wire        [FUNC_WIDTH-1:0]     output_func;
+   /* verilator lint_off UNUSED */
    wire signed [DATA_OP_WIDTH-1:0]  output_data    [NUM_DATA-1:0];
    
    wire                             cordic_vld     [NUM_STAGE-1:0];
@@ -56,8 +60,11 @@ module cordic_iteration
    // Extend DATA_WIDTH to DATA_OP_WIDTH to handle overflow
    assign cordic_vld [0]       =         i_vld;
    assign cordic_func[0]       =         i_data[TOTAL_WIDTH-1];
+   /* verilator lint_off WIDTH */
    assign cordic_data[0][0][X] = $signed(i_data[X*DATA_WIDTH +: DATA_WIDTH]);
+   /* verilator lint_off WIDTH */
    assign cordic_data[0][0][Y] = $signed(i_data[Y*DATA_WIDTH +: DATA_WIDTH]);
+   /* verilator lint_off WIDTH */
    assign cordic_data[0][0][Z] = $signed(i_data[Z*DATA_WIDTH +: DATA_WIDTH]);
    
    // Generate CORDIC units for each pipe stage

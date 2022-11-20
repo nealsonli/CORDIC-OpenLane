@@ -1,6 +1,7 @@
 module cordic_unit 
 #(
    parameter                               NUM_ITER       = 12,
+   /* verilator lint_off WIDTH */
    parameter         [$clog2(NUM_ITER)-1:0]STAGE_NUMBER   =  0,
    parameter                               FUNC_WIDTH     =  1,
    parameter                               DATA_OP_WIDTH  = 18,
@@ -11,9 +12,12 @@ module cordic_unit
    input      signed [DATA_OP_WIDTH-1:0]   i_x,
    input      signed [DATA_OP_WIDTH-1:0]   i_y,
    input      signed [DATA_OP_WIDTH-1:0]   i_z,
-                                           
+
+   /* verilator lint_off UNOPTFLAT */                                        
    output reg signed [DATA_OP_WIDTH-1:0]   o_x,
+   /* verilator lint_off UNOPTFLAT */
    output reg signed [DATA_OP_WIDTH-1:0]   o_y,
+   /* verilator lint_off UNOPTFLAT */
    output reg signed [DATA_OP_WIDTH-1:0]   o_z
 );                                         
    wire       signed [DATA_OP_WIDTH-1:0]   x_shift;

@@ -21,6 +21,7 @@ module scale
    output                           o_vld,
    output      [TOTAL_WIDTH-1:0]    o_data
 );
+   /* verilator lint_off LITENDIAN */
    localparam [0:14*DATA_OP_WIDTH-1] K={
          18'd5642,  //  1 0x016A0
          18'd5181,  //  2 0x0143D
@@ -64,6 +65,7 @@ module scale
    endgenerate
 
    assign output_func    =         i_data[TOTAL_OP_WIDTH-1];
+   /* verilator lint_off WIDTH */
    assign output_data[Z] = $signed(i_data[Z*DATA_OP_WIDTH +: DATA_OP_WIDTH]);
    assign o_vld  = i_vld;
    assign o_data = {output_func, output_data[X], output_data[Y], output_data[Z]};
