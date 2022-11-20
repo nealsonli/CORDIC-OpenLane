@@ -1,5 +1,6 @@
 #include <stdlib.h>
 #include <iostream>
+#include <fstream>
 #include <iomanip>
 #include <verilated.h>
 #include <verilated_vcd_c.h>
@@ -9,6 +10,8 @@
 vluint64_t sim_time = 0;
 Vcordic *dut;
 VerilatedVcdC *m_trace;
+
+using namespace std;
 
 void toggle(){
   dut->i_clk ^= 1;
@@ -70,10 +73,19 @@ int main(int argc, char** argv, char** env) {
     // Run some testcases
     printf("\n");
     int wait_cycles = run_case();
-    printf("  [Wait cycles] %d cycles\n", wait_cycles);
+    printf("  [Wait Cycles] %d cycles\n", wait_cycles);
     printf("  [ Input Data] function = %ld, x = %04ld, y = %04ld, z = %04ld\n", dut->i_data >> 48, (dut->i_data >> 32) & 0xFFFF, (dut->i_data >> 16) & 0xFFFF, (dut->i_data >> 0) & 0xFFFF);
     printf("  [Output Data] function = %ld, x = %04ld, y = %04ld, z = %04ld\n", dut->o_data >> 48, (dut->o_data >> 32) & 0xFFFF, (dut->o_data >> 16) & 0xFFFF, (dut->o_data >> 0) & 0xFFFF);
     printf("\n");
+
+    // Write the result to file
+    ofstream result;
+    result.open("cordic/simulation/result");
+    result << ((dut->o_data >> 48) & 0x0001) << endl;
+    result << ((dut->o_data >> 32) & 0xFFFF) << endl;
+    result << ((dut->o_data >> 16) & 0xFFFF) << endl;
+    result << ((dut->o_data >>  0) & 0xFFFF) << endl;
+    result.close();
 
     m_trace->close();
     delete dut;
