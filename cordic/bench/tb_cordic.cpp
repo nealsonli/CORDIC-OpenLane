@@ -38,19 +38,23 @@ long long compose_i_data(int func, int x, int y, int z){
     return ((long long)func << 48) + ((long long)x << 32) + ((long long)y << 16) + (long long)z;
 }
 
-void simple(int i){
+int run_case(){
 
     // Feed the i_data
     dut->i_vld = 1;
-    dut->i_data = compose_i_data(func[i], x[i], y[i], z[i]);
+    dut->i_data = compose_i_data(func, x, y, z);
     toggle();
     dut->i_vld = 0;
     toggle();
     
     // Wait for o_vld to become 1
-    while(dut->o_vld != 1)
+    int wait_cycles = 1;
+    while(dut->o_vld != 1){
       toggle();
+      wait_cycles++;
+    }
 
+    return wait_cycles;
 }
 
 int main(int argc, char** argv, char** env) {
@@ -63,12 +67,14 @@ int main(int argc, char** argv, char** env) {
     // Initialize DUT
     initialize_signals();
 
-    // Run some simple cases
-    for(int i=0;i<3;i++){
-      std::cout << "Running testcase " << i << " ... ";
-      simple(i);
-      std::cout << "(i_data, o_data) = (" << std::hex << std::setw(13) << std::setfill('0') << dut->i_data << ", " << std::hex << std::setw(13) << std::setfill('0') << dut->o_data << ")" << std::endl;
-    }
+    // Run some testcases
+    printf("\n");
+    std::cout << "[Running testcase]" << std::endl;
+    int wait_cycles = run_case();
+    printf("  [Wait cycles] %d cycles\n", wait_cycles);
+    printf("  [ Input Data] mode = %ld, x = %04ld, y = %04ld, z = %04ld\n", dut->i_data >> 48, (dut->i_data >> 32) & 0xFFFF, (dut->i_data >> 16) & 0xFFFF, (dut->i_data >> 0) & 0xFFFF);
+    printf("  [Output Data] mode = %ld, x = %04ld, y = %04ld, z = %04ld\n", dut->o_data >> 48, (dut->o_data >> 32) & 0xFFFF, (dut->o_data >> 16) & 0xFFFF, (dut->o_data >> 0) & 0xFFFF);
+    printf("\n");
 
     m_trace->close();
     delete dut;
