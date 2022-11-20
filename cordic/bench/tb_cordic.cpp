@@ -65,7 +65,7 @@ int main(int argc, char** argv, char** env) {
     Verilated::traceEverOn(true);
     m_trace = new VerilatedVcdC;
     dut->trace(m_trace, 5);
-    m_trace->open("waveform.vcd");
+    m_trace->open("cordic/simulation/waveform.vcd");
 
     // Initialize DUT
     initialize_signals();
