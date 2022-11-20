@@ -59,7 +59,7 @@ module cordic
       .X                   (X                  ),
       .Y                   (Y                  ),
       .Z                   (Z                  )
-   ) angle_adjust_0 (
+   ) u_angle_adjust (
       .i_vld               (r_input_vld),
       .i_data              (r_input_data),
       .o_vld               (aa2it_vld),
@@ -84,7 +84,7 @@ module cordic
       .X                   (X                  ),
       .Y                   (Y                  ),
       .Z                   (Z                  )
-   ) cordic_iteration_0 (
+   ) u_cordic_iteration (
       .i_clk               (i_clk),
       .i_rst               (i_rst),
       .i_vld               (aa2it_vld),
@@ -95,8 +95,8 @@ module cordic
 
    scale
    #(
-      .NUM_ITER            (`NUM_ITER           ),
-      .EN_SCALE            (`EN_SCALE           ),
+      .NUM_ITER            (`NUM_ITER          ),
+      .EN_SCALE            (`EN_SCALE          ),
       
       .NUM_DATA            (NUM_DATA           ),
       .FUNC_WIDTH          (FUNC_WIDTH         ),
@@ -109,7 +109,7 @@ module cordic
       .X                   (X                  ),
       .Y                   (Y                  ),
       .Z                   (Z                  )
-   ) scale_0 (
+   ) u_scale (
       .i_vld               (it2sc_vld),
       .i_data              (it2sc_data),
       .o_vld               (sc2ff_vld),

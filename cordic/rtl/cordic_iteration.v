@@ -70,7 +70,7 @@ module cordic_iteration
                .FUNC_WIDTH       (FUNC_WIDTH), 
                .DATA_OP_WIDTH    (DATA_OP_WIDTH), 
                .ELEM_ANGLE       (ELEM_ANGLE[STAGE_NUM*DATA_OP_WIDTH +: DATA_OP_WIDTH])
-            ) cordic_unit_0 (
+            ) u_cordic_unit (
                .i_func           (cordic_func[i]),
 
                .i_x              (cordic_data[i][j][X]),

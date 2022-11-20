@@ -78,10 +78,24 @@ int main(int argc, char** argv, char** env) {
     printf("  [Output Data] function = 0x%lx, x = 0x%04lx, y = 0x%04lx, z = 0x%04lx\n", dut->o_data >> 48, (dut->o_data >> 32) & 0xFFFF, (dut->o_data >> 16) & 0xFFFF, (dut->o_data >> 0) & 0xFFFF);
     printf("\n");
 
+    int stage_size = sizeof(dut->cordic__DOT__u_cordic_iteration__DOT__cordic_data[0][0]);
+    //printf("stage_size: %d\n", stage_size);
+    int num_iter_per_stage = sizeof(dut->cordic__DOT__u_cordic_iteration__DOT__cordic_data[0])/stage_size - 1;
+    //printf("num_iter_per_stage: %d\n", num_iter_per_stage);
+    int iter_size = sizeof(dut->cordic__DOT__u_cordic_iteration__DOT__cordic_data[0]);
+    //printf("iter_size: %d\n", iter_size);
+    int num_stage = sizeof(dut->cordic__DOT__u_cordic_iteration__DOT__cordic_data)/iter_size;
+    //printf("num_stage: %d\n", num_stage);
+
     // Write the result to file
     ofstream result;
     result.open("cordic/simulation/result");
-    result << ((dut->o_data >> 48) &    0x1) << endl;
+    result << hex;
+    for(int i=0;i<wait_cycles;i++){
+      result << (dut->cordic__DOT__u_cordic_iteration__DOT__cordic_data[i][num_iter_per_stage][2] & 0xFFFF) << endl;
+      result << (dut->cordic__DOT__u_cordic_iteration__DOT__cordic_data[i][num_iter_per_stage][1] & 0xFFFF) << endl;
+      result << (dut->cordic__DOT__u_cordic_iteration__DOT__cordic_data[i][num_iter_per_stage][0] & 0xFFFF) << endl;
+    }
     result << ((dut->o_data >> 32) & 0xFFFF) << endl;
     result << ((dut->o_data >> 16) & 0xFFFF) << endl;
     result << ((dut->o_data >>  0) & 0xFFFF) << endl;
