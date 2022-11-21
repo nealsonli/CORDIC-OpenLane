@@ -30,7 +30,7 @@ module cordic_unit
    assign y_shift = i_y >>> STAGE_NUMBER;
 
    assign sigma_rot =  i_z[DATA_OP_WIDTH-1];
-   assign sigma_vec =!(i_x[DATA_OP_WIDTH-1] || i_y[DATA_OP_WIDTH-1]);
+   assign sigma_vec =!(i_x[DATA_OP_WIDTH-1] && i_y[DATA_OP_WIDTH-1]);
    assign sigma     =  i_func ? sigma_vec : sigma_rot;
 
    always @*  begin
